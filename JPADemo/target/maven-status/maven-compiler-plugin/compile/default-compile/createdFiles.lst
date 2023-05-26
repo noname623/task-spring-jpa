@@ -1,0 +1,9 @@
+com\example\jpademo\model\entity\User.class
+com\example\jpademo\specification\UserSpecification.class
+com\example\jpademo\controller\UserController.class
+com\example\jpademo\service\UserService.class
+com\example\jpademo\service\impl\UserServiceImpl.class
+com\example\jpademo\model\entity\Home.class
+com\example\jpademo\repository\UserRepository.class
+com\example\jpademo\JpaDemoApplication.class
+com\example\jpademo\repository\HomeDao.class
