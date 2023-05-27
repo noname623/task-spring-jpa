@@ -1,48 +1,72 @@
 package com.example.jpademo.service.impl;
 
+import com.example.jpademo.mapper.SecurityMapper;
+import com.example.jpademo.model.dto.SecurityDto;
+import com.example.jpademo.model.dto.create.SecurityCreateDto;
+import com.example.jpademo.model.dto.update.SecurityUpdateDto;
 import com.example.jpademo.model.entity.Security;
+import com.example.jpademo.model.exeption.ApplicationException;
+import com.example.jpademo.model.exeption.ExceptionMessage;
 import com.example.jpademo.repository.SecurityRepository;
 import com.example.jpademo.service.SecurityService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SecurityServiceImpl implements SecurityService {
 
     public final SecurityRepository repository;
+    private final SecurityMapper mapper;
 
-    public SecurityServiceImpl(SecurityRepository repository) {
-        this.repository = repository;
+    @Override
+    public List<SecurityDto> get() {
+        List<Security> sec = repository.findAll();
+        List<SecurityDto> dto = mapper.toDto(sec);
+        return dto;
     }
 
     @Override
-    public List<Security> get() {
-        return repository.findAll();
+    public SecurityDto get(Long id) {
+        Security sec = repository.findById(id).orElseThrow(() -> new ApplicationException(ExceptionMessage.ID_NOT_FOUND));
+        SecurityDto dto = mapper.toDto(sec);
+        return dto;
     }
 
     @Override
-    public Security get(Long id) {
-        return repository.findById(id).orElseThrow();
+    public SecurityDto get(Security post) {
+        Security sec = repository.findByPost(post);
+        SecurityDto dto = mapper.toDto(sec);
+        return dto;
     }
 
     @Override
-    public void get(Security post) {
-        repository.findByPost(post);
+    public SecurityDto create(SecurityCreateDto dto) {
+        Security security = mapper.toEntity(dto);
+        System.out.println(security);
+        Security securitySave = repository.save(security);
+        System.out.println(securitySave);
+        SecurityDto securityDto = mapper.toDto(securitySave);
+        return securityDto;
     }
 
     @Override
-    public void create(Security security) {
-        repository.save(security);
+    public SecurityDto update(Long id, SecurityUpdateDto dto) {
+        SecurityDto securityDto = get(id);
+        Security security = mapper.toEntity(securityDto);
+        security.setName(dto.getName());
+        Security securitySave = repository.save(security);
+        SecurityDto dtoSave = mapper.toDto(securitySave);
+        return dtoSave;
     }
 
-    @Override
-    public void update(Long id) {
-        repository.updateById(id);
-    }
 
     @Override
-    public void delete(Long id) {
+    public SecurityDto delete(Long id) {
+        SecurityDto dto = get(id);
         repository.deleteById(id);
+        return dto;
     }
 }

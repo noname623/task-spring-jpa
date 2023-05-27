@@ -1,11 +1,14 @@
 package com.example.jpademo.service;
 
-import com.example.jpademo.model.entity.Home;
+import com.example.jpademo.model.dto.HomeDto;
+import com.example.jpademo.model.dto.create.HomeCreateDto;
 
 import java.util.List;
 
 public interface HomeService {
-    List<Home> get();
-    void get(String address);
-    void delete(Long id);
+    List<HomeDto> get();
+    HomeDto get(Long id);
+    HomeDto get(String address);
+    HomeDto create(HomeCreateDto dto);
+    HomeDto delete(Long id);
 }

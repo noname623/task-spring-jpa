@@ -1,22 +1,22 @@
 package com.example.jpademo.controller;
 
+import com.example.jpademo.mapper.UserMapper;
 import com.example.jpademo.model.dto.UserDto;
+import com.example.jpademo.model.dto.create.UserCreateDto;
+import com.example.jpademo.model.dto.update.UserUpdateDto;
 import com.example.jpademo.model.entity.User;
 import com.example.jpademo.service.impl.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping("/users")
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserServiceImpl service;
-
-    public UserController(UserServiceImpl service) {
-        this.service = service;
-    }
-
 
     @GetMapping
     public List<UserDto> get() {
@@ -24,32 +24,35 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User get(@PathVariable Long id) {
+    public UserDto get(@PathVariable Long id) {
         return service.get(id);
     }
 
-    @GetMapping("/{age}")
-    public List<UserDto> get(@RequestBody Integer age) {
+    @GetMapping("/age")
+    public List<UserDto> get(@RequestParam Integer age) {
         return service.lessThen(age);
     }
 
-    @GetMapping("/{email}")
-    public List<UserDto> get(@RequestBody String email) {
+    @GetMapping("/email")
+    public List<UserDto> get(@RequestParam String email) {
         return service.findByEmail(email);
     }
 
     @PostMapping
-    public void create(@RequestBody User user) {
-        service.create(user);
+    public UserDto create(@RequestBody UserCreateDto dto) {
+        UserDto userDto = service.create(dto);
+        return userDto;
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id) {
-        service.update(id);
+    public UserDto update(@PathVariable Long id, @RequestBody UserUpdateDto dto) {
+        UserDto userDto = service.update(id, dto);
+        return userDto;
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public UserDto delete(@PathVariable Long id) {
+        UserDto userDto = service.delete(id);
+        return userDto;
     }
 }

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SecurityDto {
+    private Long id;
+
     @Size(min = 4, max = 10)
     private String name;
 

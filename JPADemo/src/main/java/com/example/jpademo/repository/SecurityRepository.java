@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SecurityRepository extends JpaRepository<Security, Long> {
-    void findByPost(Security post);
-    void updateById(Long id);
+    Security findByPost(Security post);
 }

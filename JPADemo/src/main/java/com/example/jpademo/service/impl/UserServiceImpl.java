@@ -1,7 +1,12 @@
 package com.example.jpademo.service.impl;
 
+import com.example.jpademo.mapper.UserMapper;
 import com.example.jpademo.model.dto.UserDto;
+import com.example.jpademo.model.dto.create.UserCreateDto;
+import com.example.jpademo.model.dto.update.UserUpdateDto;
 import com.example.jpademo.model.entity.User;
+import com.example.jpademo.model.exeption.ApplicationException;
+import com.example.jpademo.model.exeption.ExceptionMessage;
 import com.example.jpademo.repository.UserRepository;
 import com.example.jpademo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,41 +19,61 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
-    private 
+    private final UserMapper mapper;
 
     @Override
     public List<UserDto> get() {
-        return repository.findAll();
+        List<User> users = repository.findAll();
+        List<UserDto> dto = mapper.toDto(users);
+        return dto;
     }
 
     @Override
     public List<UserDto> lessThen(Integer age) {
-        return repository.findByAgeLessThan(age);
+        List<User> users = repository.findByAgeLessThan(age);
+        List<UserDto> dto = mapper.toDto(users);
+        return dto;
     }
 
     @Override
     public List<UserDto> findByEmail(String email) {
-        return repository.findByEmail(email);
+        List<User> users = repository.findByEmail(email);
+        List<UserDto> dto = mapper.toDto(users);
+        return dto;
     }
 
     @Override
-    public User get(Long id) {
-        return repository.findById(id).orElse(new User(null, null, null, null));
-
+    public UserDto get(Long id) {
+        User user = repository.findById(id).orElseThrow(() -> new ApplicationException(ExceptionMessage.ID_NOT_FOUND));
+        UserDto dto = mapper.toDto(user);
+        return dto;
     }
 
     @Override
-    public void create(User user) {
-        repository.save(user);
+    public UserDto create(UserCreateDto dto) {
+        User user = mapper.toEntity(dto);
+        System.out.println(user.toString());
+        User userSave = repository.save(user);
+        System.out.println(userSave);
+        UserDto userDto = mapper.toDto(userSave);
+        return userDto;
     }
 
     @Override
-    public void update(Long id) {
-        repository.updateById(id);
+    public UserDto update(Long id, UserUpdateDto dto) {
+        UserDto userDto = get(id);
+        User user = mapper.toEntity(userDto);
+        user.setUsername(dto.getUsername());
+        User userSave = repository.save(user);
+        UserDto dtoSave = mapper.toDto(userSave);
+        return dtoSave;
     }
 
+
     @Override
-    public void delete(Long id) {
+    public UserDto delete(Long id) {
+        UserDto dto = get(id);
         repository.deleteById(id);
+        return dto;
     }
 }
