@@ -23,22 +23,19 @@ public class HomeServiceImpl implements HomeService {
     @Override
     public List<HomeDto> get() {
         List<Home> home = repository.findAll();
-        List<HomeDto> dto = mapper.toDto(home);
-        return dto;
+        return mapper.toDto(home);
     }
 
     @Override
     public HomeDto get(Long id) {
         Home home = repository.findById(id).orElseThrow(() -> new ApplicationException(ExceptionMessage.ID_NOT_FOUND));
-        HomeDto dto = mapper.toDto(home);
-        return dto;
+        return mapper.toDto(home);
     }
 
     @Override
     public HomeDto get(String address) {
         Home home = repository.findByAddress(address);
-        HomeDto dto = mapper.toDto(home);
-        return dto;
+        return mapper.toDto(home);
     }
 
     @Override
@@ -47,8 +44,7 @@ public class HomeServiceImpl implements HomeService {
         System.out.println(home);
         Home homeSave = repository.save(home);
         System.out.println(homeSave);
-        HomeDto homeDto = mapper.toDto(homeSave);
-        return homeDto;
+        return mapper.toDto(homeSave);
     }
 
 

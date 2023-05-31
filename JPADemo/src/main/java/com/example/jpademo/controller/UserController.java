@@ -1,10 +1,8 @@
 package com.example.jpademo.controller;
 
-import com.example.jpademo.mapper.UserMapper;
 import com.example.jpademo.model.dto.UserDto;
 import com.example.jpademo.model.dto.create.UserCreateDto;
 import com.example.jpademo.model.dto.update.UserUpdateDto;
-import com.example.jpademo.model.entity.User;
 import com.example.jpademo.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -40,19 +38,16 @@ public class UserController {
 
     @PostMapping
     public UserDto create(@RequestBody UserCreateDto dto) {
-        UserDto userDto = service.create(dto);
-        return userDto;
+        return service.create(dto);
     }
 
     @PutMapping("/{id}")
     public UserDto update(@PathVariable Long id, @RequestBody UserUpdateDto dto) {
-        UserDto userDto = service.update(id, dto);
-        return userDto;
+        return service.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
     public UserDto delete(@PathVariable Long id) {
-        UserDto userDto = service.delete(id);
-        return userDto;
+        return service.delete(id);
     }
 }

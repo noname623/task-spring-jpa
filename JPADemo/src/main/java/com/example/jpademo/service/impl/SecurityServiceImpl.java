@@ -24,22 +24,19 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public List<SecurityDto> get() {
         List<Security> sec = repository.findAll();
-        List<SecurityDto> dto = mapper.toDto(sec);
-        return dto;
+        return mapper.toDto(sec);
     }
 
     @Override
     public SecurityDto get(Long id) {
         Security sec = repository.findById(id).orElseThrow(() -> new ApplicationException(ExceptionMessage.ID_NOT_FOUND));
-        SecurityDto dto = mapper.toDto(sec);
-        return dto;
+        return mapper.toDto(sec);
     }
 
     @Override
     public SecurityDto get(Security post) {
         Security sec = repository.findByPost(post);
-        SecurityDto dto = mapper.toDto(sec);
-        return dto;
+        return mapper.toDto(sec);
     }
 
     @Override
@@ -48,8 +45,7 @@ public class SecurityServiceImpl implements SecurityService {
         System.out.println(security);
         Security securitySave = repository.save(security);
         System.out.println(securitySave);
-        SecurityDto securityDto = mapper.toDto(securitySave);
-        return securityDto;
+        return mapper.toDto(securitySave);
     }
 
     @Override
@@ -58,8 +54,7 @@ public class SecurityServiceImpl implements SecurityService {
         Security security = mapper.toEntity(securityDto);
         security.setName(dto.getName());
         Security securitySave = repository.save(security);
-        SecurityDto dtoSave = mapper.toDto(securitySave);
-        return dtoSave;
+        return mapper.toDto(securitySave);
     }
 
 

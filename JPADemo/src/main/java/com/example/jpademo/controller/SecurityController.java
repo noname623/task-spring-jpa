@@ -1,6 +1,5 @@
 package com.example.jpademo.controller;
 
-import com.example.jpademo.mapper.SecurityMapper;
 import com.example.jpademo.model.dto.SecurityDto;
 import com.example.jpademo.model.dto.create.SecurityCreateDto;
 import com.example.jpademo.model.dto.update.SecurityUpdateDto;

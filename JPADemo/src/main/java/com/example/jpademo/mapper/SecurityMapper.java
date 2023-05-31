@@ -2,7 +2,6 @@ package com.example.jpademo.mapper;
 
 import com.example.jpademo.model.dto.SecurityDto;
 import com.example.jpademo.model.dto.create.SecurityCreateDto;
-import com.example.jpademo.model.dto.update.SecurityUpdateDto;
 import com.example.jpademo.model.entity.Security;
 import org.springframework.stereotype.Component;
 

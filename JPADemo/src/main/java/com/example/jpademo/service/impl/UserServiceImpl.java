@@ -24,29 +24,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> get() {
         List<User> users = repository.findAll();
-        List<UserDto> dto = mapper.toDto(users);
-        return dto;
+        return mapper.toDto(users);
     }
 
     @Override
     public List<UserDto> lessThen(Integer age) {
         List<User> users = repository.findByAgeLessThan(age);
-        List<UserDto> dto = mapper.toDto(users);
-        return dto;
+        return mapper.toDto(users);
     }
 
     @Override
     public List<UserDto> findByEmail(String email) {
         List<User> users = repository.findByEmail(email);
-        List<UserDto> dto = mapper.toDto(users);
-        return dto;
+        return mapper.toDto(users);
     }
 
     @Override
     public UserDto get(Long id) {
         User user = repository.findById(id).orElseThrow(() -> new ApplicationException(ExceptionMessage.ID_NOT_FOUND));
-        UserDto dto = mapper.toDto(user);
-        return dto;
+        return mapper.toDto(user);
     }
 
     @Override
@@ -55,8 +51,7 @@ public class UserServiceImpl implements UserService {
         System.out.println(user.toString());
         User userSave = repository.save(user);
         System.out.println(userSave);
-        UserDto userDto = mapper.toDto(userSave);
-        return userDto;
+        return mapper.toDto(userSave);
     }
 
     @Override
@@ -65,8 +60,7 @@ public class UserServiceImpl implements UserService {
         User user = mapper.toEntity(userDto);
         user.setUsername(dto.getUsername());
         User userSave = repository.save(user);
-        UserDto dtoSave = mapper.toDto(userSave);
-        return dtoSave;
+        return mapper.toDto(userSave);
     }
 
 
