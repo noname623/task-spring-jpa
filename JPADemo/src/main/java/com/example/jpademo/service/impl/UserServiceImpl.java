@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
         User user = mapper.toEntity(userDto);
         user.setUsername(dto.getUsername());
         User userSave = repository.save(user);
+        delete(id);
         return mapper.toDto(userSave);
     }
 

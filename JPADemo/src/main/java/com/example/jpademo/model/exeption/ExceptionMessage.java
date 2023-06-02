@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ExceptionMessage {
-    ID_NOT_FOUND(HttpStatus.NOT_FOUND, "id is not found");
+    ID_NOT_FOUND(HttpStatus.NOT_FOUND, "id is not found"),
+    USER_CREATED(HttpStatus.CREATED, "user created");
 
     private final HttpStatus status;
     private final String massage;
+
 
 
 }

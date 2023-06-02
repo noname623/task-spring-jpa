@@ -29,7 +29,6 @@ public class UserMapper {
 
     public User toEntity(UserCreateDto dto) {
         User entity = new User();
-        entity.setId(null);
         entity.setUsername(dto.getName());
         entity.setAge(dto.getAge());
         entity.setEmail(dto.getEmail());
